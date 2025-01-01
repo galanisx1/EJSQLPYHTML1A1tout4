@@ -51,7 +51,7 @@ def obtener():
         cursor = conn.cursor(dictionary=True)
 
         # Ejecuta la consulta para obtener todos los usuarios
-        cursor.execute("SELECT * FROM Alumno")
+        cursor.execute("SELECT * FROM usuarios")
         datos = cursor.fetchall()
 
         return jsonify(datos), 200
