@@ -23,29 +23,24 @@ def home():
 # Ruta para insertar datos en la base de datos
 @app.route('/insertar', methods=['POST'])
 def insertar():
-    data = request.json  # Obtiene los datos JSON enviados en el cuerpo de la solicitud
-    nombre = data.get('nombre')
-    edad = data.get('edad')
-    telefono = data.get('telefono')
-
-    if not nombre or not edad or not telefono:
-        return jsonify({'error': 'Faltan campos'}), 400
-
+    data = request.json
+    nombre = data['nombre']
+    edad = data['edad']
+    telefono = data['telefono']
     try:
-        # Conecta a la base de datos
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
-        
-        # Inserta los datos en la tabla Alumno
-        cursor.execute("INSERT INTO Alumno (nombre, edad, telefono) VALUES (%s, %s, %s)", (nombre, edad, telefono))
+        cursor.execute("INSERT INTO usuarios (nombre, edad, telefono) VALUES (%s, %s, %s)", (nombre, edad, telefono))
         conn.commit()
-
+        print(f"Datos recibidos: {data}")
         return jsonify({'message': 'Datos insertados correctamente'}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    except mysql.connector.Error as err:
+        print(f"Error en la base de datos: {err}")  # Esto mostrará el error en la terminal
+        return jsonify({'error': f"Error en la base de datos: {err}"}), 500
     finally:
         cursor.close()
         conn.close()
+
 
 # Ruta para obtener los datos de los usuarios registrados
 @app.route('/obtener', methods=['GET'])
