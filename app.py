@@ -3,6 +3,7 @@ import mysql.connector
 from flask_cors import CORS
 
 app = Flask(__name__)
+app.debug = True
 CORS(app)  # Permite solicitudes desde dominios diferentes
 
 # Configuración de la base de datos
