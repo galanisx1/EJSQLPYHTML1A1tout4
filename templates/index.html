@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Light Theme</title>
+  
+  <!-- Referencia correcta al CSS -->
+  <link href="{{ url_for('static', filename='css/singlePageTemplate.css') }}" rel="stylesheet" type="text/css">
+  
+  <script>var __adobewebfontsappname__="dreamweaver"</script>
+  <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+
+  <script>
+    // Función para enviar datos al backend
+    function enviarDatos(event) {
+      event.preventDefault(); // Evitar el comportamiento por defecto del formulario
+
+      const nombre = document.getElementById('nombre').value;
+      const edad = document.getElementById('edad').value;
+      const telefono = document.getElementById('telefono').value;
+
+      const data = { nombre, edad, telefono };
+
+      // Enviar datos a través de fetch (solicitud POST)
+      fetch('/insertar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Éxito:', data);
+        alert('Datos enviados correctamente!');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Hubo un error al enviar los datos.');
+      });
+    }
+
+    // Función para obtener los usuarios registrados
+    function obtenerDatos() {
+      fetch('/obtener', {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(data => {
+        const listaDatos = document.getElementById('listaDatos');
+        listaDatos.innerHTML = ''; // Limpiar la lista antes de mostrar los datos
+        data.forEach(usuario => {
+          const li = document.createElement('li');
+          li.textContent = `Nombre: ${usuario.nombre}, Edad: ${usuario.edad}, Teléfono: ${usuario.telefono}`;
+          listaDatos.appendChild(li);
+        });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Hubo un error al obtener los datos.');
+      });
+    }
+  </script>
+
+</head>
+<body>
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Navigation -->
+    <header> 
+      <a href="">
+        <h4 class="logo">LIGHT</h4>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#hero">HOME</a></li>
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <h2 class="hero_header">HERO <span class="light">LIGHT</span></h2>
+      <p class="tagline">Light is a simple one page website</p>
+    </section>
+
+    <!-- Formulario para insertar datos y mostrar usuarios -->
+    <div>
+      <h1>Interacción con MySQL</h1>
+      <form id="formulario" onsubmit="enviarDatos(event)">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required>
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" required>
+        <button type="submit">Enviar</button>
+      </form>
+
+      <h2>Usuarios Registrados</h2>
+      <button onclick="obtenerDatos()">Mostrar Datos</button>
+      <ul id="listaDatos"></ul>
+    </div>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <h2 class="hidden">About</h2>
+      <p class="text_column">Lorem ipsum dolor sit amet...</p>
+      <p class="text_column">Lorem ipsum dolor sit amet...</p>
+      <p class="text_column">Lorem ipsum dolor sit amet...</p>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+      <article class="footer_column">
+        <h3>ABOUT</h3>
+        <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="" width="400" height="200" class="cards"/>
+        <p>Lorem ipsum dolor sit amet...</p>
+      </article>
+    </footer>
+
+    <!-- Copyrights Section -->
+    <div class="copyright">&copy;2024 - <strong>Light Theme</strong></div>
+  </div>
+</body>
+</html>
+
+
