@@ -36,7 +36,13 @@
       .then(data => {
         console.log('Éxito:', data);
         alert('Datos enviados correctamente!');
+
+        // Limpiar los campos del formulario después de enviar los datos
+        document.getElementById('nombre').value = '';
+        document.getElementById('edad').value = '';
+        document.getElementById('telefono').value = '';
       })
+        
       .catch((error) => {
         console.error('Error:', error);
         alert('Hubo un error al enviar los datos.');
