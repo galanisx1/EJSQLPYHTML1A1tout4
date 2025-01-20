@@ -1,11 +1,11 @@
 import mysql.connector
 
 db_config = {
-    'host': 'eif037975979db.ch00woi2qdij.us-east-1.rds.amazonaws.com',
+    'host': 'dbimanno2.ch00woi2qdij.us-east-1.rds.amazonaws.com',
     'user': 'admin',
-    'password': 'Pedro3103$A',
+    'password': 'Ypjypj007!',
     'database': 'eif037975979DB',
-    'port': 3306
+    'port': 3306  # Puerto predeterminado de MySQL
 }
 
 try:
