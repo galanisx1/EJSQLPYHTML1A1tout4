@@ -1,9 +1,9 @@
 import mysql.connector
 
 db_config = {
-    'host': 'dbimanno2.ch00woi2qdij.us-east-1.rds.amazonaws.com',
+    'host': 'dbimannov3.ch00woi2qdij.us-east-1.rds.amazonaws.com',
     'user': 'admin',
-    'password': 'Ypjypj007!',
+    'password': 'imanno007!',
     'database': 'eif037975979DB',
     'port': 3306  # Puerto predeterminado de MySQL
 }
